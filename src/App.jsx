@@ -1,27 +1,60 @@
-import React from 'react'
+import { useState } from 'react'
 import './App.css'
 import Header from './Components/Header'
 import Languages from './Components/Languages'
-import Word from './Components/Word'
-import Keyboard from './Components/Keyboard'
+import { clsx } from 'clsx';
 
-const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
-const word = ['E', 'L', 'E', 'P', 'H', 'A', 'N', 'T']
-
-const keyboard = alphabet.map(letter =>
-  <Keyboard 
-    letter = {letter}
-  />
-)
-
-const guessWord = word.map(word =>
-  <Word
-    letter ={word}
-  />
-)
 
 const App = () => {
+
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
+  const [word, setword ]= useState('elephant')
+  const  [guess, setGuess] = useState([])
+  console.log(guess)
+  
+  function handleGuess(letter) {
+    setGuess(prev => 
+      prev.includes(letter.toUpperCase()) ? prev :
+      [...prev, letter.toUpperCase()]
+    )
+  }
+
+  const keyboard = alphabet.split('').map(letter => {
+    const upperLetter = letter.toUpperCase();
+    const isGuessed = guess.includes(upperLetter);
+    const inWord = word.toUpperCase().includes(upperLetter);
+    let btnClass = 'btn';
+    if (isGuessed) {
+      btnClass += inWord ? ' green' : ' red';
+    }
+    return (
+      <div>
+        <button 
+          key={upperLetter}
+          onClick={() => handleGuess(letter)}
+          className={btnClass}
+          disabled={isGuessed}
+        >
+          {upperLetter}
+        </button>
+      </div>
+    );
+  });
+
+  const guessWord = word.split('').map(letter => {
+    const upperCase = letter.toUpperCase();
+    const isGuessed = guess.includes(upperCase);
+    return (
+      <section className='word' key={upperCase}>
+        <div>
+          {isGuessed ? upperCase : ''}
+        </div>
+      </section>
+    );
+  });
+
   return (
     <div className='container'>
       <Header />
@@ -32,6 +65,7 @@ const App = () => {
       <div  className='keyboard'>
         {keyboard}
       </div>
+      <button className='newgame'> New Game</button>
     </div>
   )
 }
