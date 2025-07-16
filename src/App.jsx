@@ -2,21 +2,28 @@ import { useState } from 'react'
 import './App.css'
 import Header from './Components/Header'
 import Languages from './Components/Languages'
-import { clsx } from 'clsx';
+import { clsx } from 'clsx'
+import  data  from './Components/Data'
 
 
 
 const App = () => {
 
+  const randomWord = Math.floor(Math.random()*7)
   
-  const [word, setword ]= useState('react')
+  const [word, setword ]= useState(data[randomWord])
   const  [guess, setGuess] = useState([])
+  
+  console.log(word)
 
   const wrongGuessCount = guess.filter(letter => !word.toUpperCase().includes(letter)).length;
 
-  const isGameLost = wrongGuessCount === 8
-  const isGameWon = guess.filter(letter => word.toUpperCase().includes(letter)).length == word.split('').length
-  const isGameOver = isGameLost || isGameWon
+
+  const isGameLost = wrongGuessCount === 8;
+  // Game is won if all unique letters in the word have been guessed
+  const uniqueLetters = [...new Set(word.toUpperCase().split(''))];
+  const isGameWon = uniqueLetters.every(letter => guess.includes(letter));
+  const isGameOver = isGameLost || isGameWon;
 
   console.log(isGameLost, "gamelost")
   console.log(isGameWon, "gamewon")
@@ -29,6 +36,14 @@ const App = () => {
       [...prev, letter.toUpperCase()]
     )
   }
+  function newGame() {
+    setword(data[randomWord])
+    // handleGuess()
+    setGuess([])
+    
+
+  }
+  
 
   const keyboard = alphabet.split('').map(letter => {
     const upperLetter = letter.toUpperCase();
@@ -44,7 +59,7 @@ const App = () => {
           key={upperLetter}
           onClick={() => handleGuess(letter)}
           className={btnClass}
-          disabled={isGuessed}
+          disabled={isGuessed || isGameOver}
         >
           {upperLetter}
         </button>
@@ -52,14 +67,12 @@ const App = () => {
     );
   });
 
-  const guessWord = word.split('').map(letter => {
+  const guessWord = word.split('').map((letter, index) => {
     const upperCase = letter.toUpperCase();
     const isGuessed = guess.includes(upperCase);
     return (
-      <section className='word' key={upperCase}>
-        <div>
-          {isGuessed ? upperCase : ''}
-        </div>
+      <section className='word' key={index+1}>
+        {!isGameOver ? <div>{isGuessed ? upperCase : ''} </div> : ''}
       </section>
     );
   });
@@ -67,6 +80,7 @@ const App = () => {
   return (
     <div className='container'>
       <Header
+        guess = {wrongGuessCount}
         won = {isGameWon}
         lost = {isGameLost}
         over = {isGameOver}
@@ -78,7 +92,13 @@ const App = () => {
       <div  className='keyboard'>
         {keyboard}
       </div>
-      {/* {isGameWon ===true && <button className='newgame'> New Game</button>} */}
+      {isGameOver === true && 
+      <button 
+        onClick={() =>newGame()}
+        className='newgame'
+      >
+         New Game
+      </button>}
     </div>
   )
 }

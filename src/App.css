@@ -7,7 +7,7 @@
   margin: 0 auto;
   width: 100%;
   max-width: 32rem;
-  height: 70vh;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -56,19 +56,15 @@
   padding-bottom: 0.6rem;
   border-radius: 0.4rem;
   background-color: #7A5EA7;
-}
-.msg-container-empty {
-  background-color: inherit ;
+
+
 
 }
+
 .msg-container > span {
   text-align: center;
 }
 
-.msg-container.won {
-  height: 5.9rem;
-
-}
 .msg-container-lost {
   background-color: #ac0909;
 
@@ -91,6 +87,9 @@ span {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.msg-container > span {
+  font-size: 1.6rem;
 }
 .msg-disp {
   font-size: 1.6rem;
