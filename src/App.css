@@ -46,6 +46,7 @@
 }
 
 .msg-container {
+  margin-bottom: -1rem;
   display: flex;
   justify-content: center;
   align-items: center ;
@@ -55,6 +56,22 @@
   padding-bottom: 0.6rem;
   border-radius: 0.4rem;
   background-color: #7A5EA7;
+}
+.msg-container-empty {
+  background-color: inherit ;
+
+}
+.msg-container > span {
+  text-align: center;
+}
+
+.msg-container.won {
+  height: 5.9rem;
+
+}
+.msg-container-lost {
+  background-color: #ac0909;
+
 }
 
 .lang-container {
@@ -79,22 +96,28 @@ span {
   font-size: 1.6rem;
 
 }
-  .html {
+.html {
   background-color: #E2680F;
   width: 4.1rem; 
   height: 2.5rem;
+  position: relative;
 }
 
 .css {
-width: 3.2rem;
-height: 2.5rem;
-background-color: #328AF1;
+  width: 3.2rem;
+  height: 2.5rem;
+  background-color: #328AF1;
+  position: relative;
+
 } 
+
 .javascript {
   width: 6.675rem;
   height: 2.475rem;
   background-color: #F4EB13;
   color: #000000;
+  position: relative;
+
 }
 
 .react {
@@ -102,6 +125,8 @@ background-color: #328AF1;
   height: 2.5rem;
   color: #000000;
   background-color: #2ED3E9;
+  position: relative;
+
 
 }
 
@@ -110,12 +135,16 @@ background-color: #328AF1;
   height: 2.475rem;
   border-radius: 0.3rem;
   background-color: #298EC6;
+  position: relative;
+
 }
 
 .node-js {
   width: 5rem;
   height: 2.5rem;
   background-color: #599137;
+  position: relative;
+
 }
 
 .python {
@@ -123,18 +152,24 @@ background-color: #328AF1;
   height: 2.5rem;
   color: #000000;
   background-color: #FFD742;
+  position: relative;
+
 }
 
 .ruby {
   width: 3.7rem;
   height: 2.5rem;
   background-color: #D02B2B;
+  position: relative;
+
 }
 
 .assembly {
-width: 6.2rem;
-height: 2.5rem;
-background-color: #2D519F;
+  width: 6.2rem;
+  height: 2.5rem;
+  background-color: #2D519F;
+  position: relative;
+
 }
 
 .letter {
@@ -203,3 +238,17 @@ button.newgame {
   font-weight: 500;
   font-size: 1.6rem;
 }
+
+.lost {
+  opacity: 0.2;
+}
+.lost::before {
+  content: '💀';
+  font-size: 1.7rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%)
+}
+
+

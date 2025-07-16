@@ -8,11 +8,20 @@ import { clsx } from 'clsx';
 
 const App = () => {
 
-  const alphabet = 'abcdefghijklmnopqrstuvwxyz'
-
-  const [word, setword ]= useState('elephant')
+  
+  const [word, setword ]= useState('react')
   const  [guess, setGuess] = useState([])
-  console.log(guess)
+
+  const wrongGuessCount = guess.filter(letter => !word.toUpperCase().includes(letter)).length;
+
+  const isGameLost = wrongGuessCount === 8
+  const isGameWon = guess.filter(letter => word.toUpperCase().includes(letter)).length == word.split('').length
+  const isGameOver = isGameLost || isGameWon
+
+  console.log(isGameLost, "gamelost")
+  console.log(isGameWon, "gamewon")
+  console.log(isGameOver, "gameover")
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz'
   
   function handleGuess(letter) {
     setGuess(prev => 
@@ -57,15 +66,19 @@ const App = () => {
 
   return (
     <div className='container'>
-      <Header />
-      <Languages />
+      <Header
+        won = {isGameWon}
+        lost = {isGameLost}
+        over = {isGameOver}
+      />
+      <Languages lost={wrongGuessCount} />
       <div className="letter">
       {guessWord}
       </div>
       <div  className='keyboard'>
         {keyboard}
       </div>
-      <button className='newgame'> New Game</button>
+      {/* {isGameWon ===true && <button className='newgame'> New Game</button>} */}
     </div>
   )
 }
