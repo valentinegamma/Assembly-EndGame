@@ -4,6 +4,7 @@ import Header from './Components/Header'
 import Languages from './Components/Languages'
 import { clsx } from 'clsx'
 import  data  from './Components/Data'
+import Confetti from 'react-confetti'
 
 
 
@@ -38,7 +39,6 @@ const App = () => {
   }
   function newGame() {
     setword(data[randomWord])
-    // handleGuess()
     setGuess([])
     
 
@@ -72,13 +72,14 @@ const App = () => {
     const isGuessed = guess.includes(upperCase);
     return (
       <section className='word' key={index+1}>
-        {!isGameOver ? <div>{isGuessed ? upperCase : ''} </div> : ''}
+        {!isGameOver ? <div>{isGuessed ? upperCase : ''} </div> : <span className={!isGuessed ? 'wrong-guess': 'right-guess'}>{upperCase}</span>}
       </section>
     );
   });
 
   return (
     <div className='container'>
+     
       <Header
         guess = {wrongGuessCount}
         won = {isGameWon}
@@ -99,8 +100,10 @@ const App = () => {
       >
          New Game
       </button>}
+      {isGameWon && <Confetti  width={320}  />}
     </div>
   )
+
 }
 
 export default App

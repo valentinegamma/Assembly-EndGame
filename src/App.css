@@ -226,6 +226,15 @@ button {
 .btn.red {
   background-color: rgb(179, 27, 27);
 }
+.right-guess {
+  color: rgb(0, 255, 0);
+}
+
+.wrong-guess {
+  color: red;
+}
+
+
 
 button.newgame {
   margin-top: 2rem;
